@@ -1,5 +1,6 @@
 const fs = require("fs")
 const crypto = require("crypto")
+const otpGenerator = require('otp-generator')
 
 function fetch_setting({key, _default=""}){
     try{
@@ -21,16 +22,19 @@ function hash_string(value){
     return hash
 }
 
-function exception({res, data, status}){
-    res.status(status || 500)
-    return res.send({
-        error: data
-    })
+function generate_otp(){
+    return otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+}
+
+function response({res, data, status=200}){
+    res.status(status)
+    return res.send({data})
 }
 
 
 module.exports = {
     fetch_setting,
     hash_string,
-    exception,
+    generate_otp,
+    response,
 }

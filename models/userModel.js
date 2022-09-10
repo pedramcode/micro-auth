@@ -6,10 +6,11 @@ const userSchema = new Schema({
     username: { type: String, maxLength: 64, required: true, unique: true},
     password: { type: String, maxLength: 64, required: true, set: val=>hash_string(val)},
     email: { type: String, maxLength: 128, required: true, unique: true},
-    blocked: { type: Boolean, default: false, require: true },
+    blocked: { type: Boolean, default: false, required: true },
+    verified: { type: Boolean, default: false, required: true},
 }, { timestamps: true })
 
-userSchema.methods.send_email = function send_email(){
+userSchema.methods.send_email = function send_email(content){
     // Email codes here
 }
 
