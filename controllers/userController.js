@@ -31,7 +31,6 @@ userRouter.post("/register", async (req, res)=>{
     await otp.save()
 
     user.send_email(`Your OTP: ${otp.code}`)
-    console.log(otp.code)
 
     return response({res, data: user})
 })
@@ -59,7 +58,25 @@ userRouter.get("/verify/:code", async (req, res) => {
     await otp.user.save()
     await otp.save()
 
-    return response({res, data: "okay!"})
+    return response({res, data: "User is verified"})
+})
+
+
+userRouter.post("/login", async (req, res) => {
+    if(!req.body || !("username" in req.body || "password" in req.body)){
+        return response({res, data: "Pass all required parameters", status: 400})
+    }
+    const data = req.body
+    const user = await User.findOne({username: data.username, password: data.password})
+
+    if(!user){
+        return response({res, data: "Invalid user credentials", status: 403})
+    }
+
+    const jwt = require('jsonwebtoken')
+    const token = jwt.sign({ username: user.username }, fetch_setting({key:"secret"}))
+
+    return response({res, data: token})
 })
 
 
