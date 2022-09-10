@@ -1,0 +1,4 @@
+{
+    "port": 8000,
+    "database": "mongodb+srv://pedram:123@cluster0.zbdpev4.mongodb.net/?retryWrites=true&w=majority"
+}
