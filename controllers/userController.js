@@ -74,7 +74,7 @@ userRouter.post("/login", async (req, res) => {
     }
 
     const jwt = require('jsonwebtoken')
-    const token = jwt.sign({ username: user.username, user_id: user._id }, fetch_setting({key:"secret"}))
+    const token = jwt.sign({ username: user.username, user_id: user._id, is_admin: user.is_admin }, fetch_setting({key:"secret"}))
 
     return response({res, data: token})
 })

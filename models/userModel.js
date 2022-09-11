@@ -7,7 +7,7 @@ const userSchema = new Schema({
     password: { type: String, maxLength: 64, required: true, set: val=>hash_string(val)},
     email: { type: String, maxLength: 128, required: true, unique: true},
     blocked: { type: Boolean, default: false, required: true },
-    verified: { type: Boolean, default: false, required: true},
+    is_admin: { type: Boolean, default: false, required: true},
 }, { timestamps: true })
 
 userSchema.methods.send_email = function send_email(content){
